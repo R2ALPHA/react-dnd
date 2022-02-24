@@ -3,18 +3,30 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useState } from 'react';
 
-const MovableItem = ({ setIsFirstColumn }) => {
+// Movable Item Component 
+const MovableItem = ({ name, setItems }) => {
+
+  const changeItemColumn = (currentItem, columnName) => {
+    setItems((prevState) => {
+      return prevState.map(e => {
+        return {
+          ...e,
+          column: e.name === currentItem.name ? columnName : e.column
+        };
+      });
+    });
+  };
 
   // Make the item draggable. 
   const [{ isDragging }, drag] = useDrag({
     type: 'CARD',
-    item: { name: 'Any custom name' },
+    item: { name },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (dropResult && dropResult.name === 'Column 1') {
-        setIsFirstColumn(true);
+        changeItemColumn(item, 'Column 1')
       } else {
-        setIsFirstColumn(false);
+        changeItemColumn(item, 'Column 2');
       }
     },
     collect: (monitor) => ({
@@ -26,11 +38,12 @@ const MovableItem = ({ setIsFirstColumn }) => {
 
   return (
     <div ref={drag} className='movable-item' style={{ opacity }}>
-      We will move this item
+      {name}
     </div>
   )
 }
 
+// Column item component
 const Column = ({ children, className, title }) => {
   const [, drop] = useDrop({
     accept: 'CARD',
@@ -45,19 +58,30 @@ const Column = ({ children, className, title }) => {
   );
 };
 
+
+// Main App Component
 export const App = () => {
 
-  const [isFirstColumn, setIsFirstColumn] = useState(true);
-  const Item = <MovableItem setIsFirstColumn={setIsFirstColumn} />;
+  const [items, setItems] = useState([
+    { id: 1, name: 'Item 1', column: 'Column 1' },
+    { id: 2, name: 'Item 2', column: 'Column 1' },
+    { id: 3, name: 'Item 3', column: 'Column 1' },
+  ]);
+
+  const returnItemsForColumn = (columnName) => {
+    return items
+      .filter(item => item.column === columnName)
+      .map(item => <MovableItem key={item.id} name={item.name} setItems={setItems} />);
+  };
 
   return (
     <div className="container">
       <DndProvider backend={HTML5Backend}>
         <Column title='Column 1' className='column first-column'>
-          {isFirstColumn && Item}
+          {returnItemsForColumn('Column 1')}
         </Column>
         <Column title='Column 2' className='column second-column'>
-          {!isFirstColumn && Item}
+          {returnItemsForColumn('Column 2')}
         </Column>
       </DndProvider>
     </div>
