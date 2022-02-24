@@ -1,23 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const MovableItem = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='movable-item'>
+      We will move this item
+    </div>
+  )
+}
+
+const FirstColumn = () => {
+  return (
+    <div className='column first-column'>
+      Column 1
+      <MovableItem />
+    </div>
+  )
+}
+
+const SecondColumn = () => {
+  return (
+    <div className='column second-column'>
+      Column 2
+    </div>
+  )
+}
+
+export const App = () => {
+  return (
+    <div className="container">
+      <FirstColumn />
+      <SecondColumn />
     </div>
   );
 }
