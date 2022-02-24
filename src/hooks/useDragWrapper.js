@@ -7,10 +7,8 @@ export const useDragWrapper = (itemType, index, name, changeItemColumn) => {
         item: { index, name },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
-            if (dropResult && dropResult.name === 'Column 1') {
-                changeItemColumn(item, 'Column 1')
-            } else {
-                changeItemColumn(item, 'Column 2');
+            if (dropResult) {
+                changeItemColumn(item, dropResult.name);
             }
         },
         collect: (monitor) => ({

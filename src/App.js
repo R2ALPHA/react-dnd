@@ -54,6 +54,9 @@ export const App = () => {
         <Column title='Column 2' className='column second-column'>
           {returnItemsForColumn('Column 2')}
         </Column>
+        <Column title='Column 3' className='column second-column'>
+          {returnItemsForColumn('Column 3')}
+        </Column>
       </DndProvider>
     </div>
   );
