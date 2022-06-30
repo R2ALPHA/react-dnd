@@ -48,10 +48,10 @@ npm run start
 
 ## Author 
 
-- [Gourav Anand] (https://github.com/R2ALPHA)
+- [Gourav Anand](https://github.com/R2ALPHA)
 
 ## License
 
-This project is open source and available under the [MIT LICENSE] (./LICENSE.md). 
+This project is open source and available under the [MIT LICENSE](./LICENSE.md). 
 
 
