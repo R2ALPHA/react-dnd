@@ -1,5 +1,5 @@
 import './App.css';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { DndProvider} from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useState } from 'react';
 import Column from './components/Column';
